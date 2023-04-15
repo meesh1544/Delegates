@@ -25,24 +25,30 @@ namespace Assignment8ex2
             else
                 Console.WriteLine($" {b} is equal to {a}");
         }
+        public delegate double calculate(double a, double b);
+            
+            
+
         static void Main(string[] args)
         {MathSolutions answer = new MathSolutions();
             Random r = new Random();
             double num1 = Math.Round(r.NextDouble() * 100);
             double num2 = Math.Round(r.NextDouble() * 100);
             
-            Func<double, double, double> calc = delegate (double num1, double num2){ return num1 + num2; };
-            Console.WriteLine(calc(100, 100));
+            Func<double, double, double> result = answer.GetProduct;
+            Console.WriteLine(result(num1, num2));
             
             Action<double, double> Result = delegate (double num1, double num2) { Console.WriteLine($" {num1} + {num2} = {answer.GetSum(num1, num2)}"); };
             Result(100, 100);
 
-            Action <double, double> Result2 = (double num1, double num2) => Console.WriteLine($" {num1} + {num2} = {answer.GetProduct(num1, num2)}"); 
+            Action <double, double> Result2 = (double num1, double num2) => Console.WriteLine($" {num1} * {num2} = {answer.GetProduct(num1, num2)}"); 
             Result2(100, 100);
 
-            Action<double, double> Result3 = (double num1, double num2) => Console.WriteLine($" {num1} / {num2} = {answer.GetDevide(num1, num2)}"); 
-            Result3 (100, 100);
-            answer.GetSmaller(num1, num2);
+            Action<double, double> Result3 = answer.GetSmaller;
+            Result3 (num1, num2);
+
+            calculate result4 = new calculate(answer.GetSum);
+            Console.WriteLine(result4(num1, num2));
         }
     }
 }
